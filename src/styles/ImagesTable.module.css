@@ -112,7 +112,3 @@
   margin-left: auto;
   pointer-events: none;
 }
-
-.navbar li:hover {
-  cursor: pointer;
-}
