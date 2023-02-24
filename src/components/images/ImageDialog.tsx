@@ -18,6 +18,26 @@ export interface ImageDialogProps {
   onClose: (value: string) => void;
 }
 
+interface Bbox {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
+}
+
+interface Prediction {
+  bbox: Bbox;
+  label: string;
+  score: string;
+}
+
+interface Predictions {
+  description: string;
+  predictions: Prediction[];
+}
+
+
+
 
 export const ImageDialog = (props: ImageDialogProps) => {
 
@@ -40,6 +60,22 @@ export const ImageDialog = (props: ImageDialogProps) => {
     
   }
 
+  const convertNegativeBboxToZero = (predictions: Predictions): Predictions => {
+    const convertedPredictions: Predictions = { ...predictions };
+    convertedPredictions.predictions = predictions.predictions.map((prediction) => {
+      const convertedPrediction: Prediction = { ...prediction };
+      const bbox: Bbox = { ...prediction.bbox };
+      bbox.x1 = bbox.x1 < 0 ? 0 : bbox.x1;
+      bbox.x2 = bbox.x2 < 0 ? 0 : bbox.x2;
+      bbox.y1 = bbox.y1 < 0 ? 0 : bbox.y1;
+      bbox.y2 = bbox.y2 < 0 ? 0 : bbox.y2;
+      convertedPrediction.bbox = bbox;
+      return convertedPrediction;
+    });
+    return convertedPredictions;
+  
+  }
+
   const handleSubmit = async () => {
     // TODO: make API request and save prediction
     try {
@@ -57,7 +93,8 @@ export const ImageDialog = (props: ImageDialogProps) => {
 
       const data = await res.json();
       console.log("data", data);
-      addPrediction(data);
+      const newData = convertNegativeBboxToZero(data)
+      addPrediction(newData);
       setLoading(false);
     } catch (error) {
       console.log(error);
