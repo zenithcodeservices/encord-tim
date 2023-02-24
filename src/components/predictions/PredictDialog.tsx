@@ -7,8 +7,6 @@ import {
   DialogActions,
   DialogContent,
 } from '@material-ui/core'
-import https from "https";
-import Image from "next/image"
 
 
 
@@ -35,14 +33,14 @@ export const PredictDialog = (props: PredictDialogProps) => {
             <div style={{backgroundImage: `url(${images[index]?.filename})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", width:400, height:300 }}>
             <svg width="400" height="300">
                 {images[index]?.prediction.predictions?.map((pred) => {
-                    console.log(pred)
-                    console.log("??????", ((pred.bbox.x2 - pred.bbox.x1)/1600)*400);
-                    console.log("!!!!!!", ((pred.bbox.y2 - pred.bbox.y1)/1200)*300);
-
-                  
-                    //<path stroke="blue" stroke-width="1" d="M0 10 100 100" />
-                    //<path stroke="blue" stroke-width="1" d={`M0 ${pred.bbox.x1} 100 100`} />
-                    return <rect x={`${(pred.bbox.x1/1600)*400}`} y={`${(pred.bbox.y1/1200)*300}`} style={{ display: "inline-block" }} width={`${((pred.bbox.x2 - pred.bbox.x1) / 1600) * 400}`} height={`${((pred.bbox.y2 - pred.bbox.y1) / 1200) * 300}px`} style={{ fill: 'rgb(0,0,255)', fillOpacity: 0.01, strokeWidth: 1, stroke: 'rgb(0,0,128)' }} />
+                    return (
+                      <>
+                      <g>
+                        <rect x={`${(pred.bbox.x1 / 1600) * 400}`} y={`${(pred.bbox.y1 / 1200) * 300}`} style={{ display: "inline-block" }} width={`${((pred.bbox.x2 - pred.bbox.x1) / 1600) * 400}`} height={`${((pred.bbox.y2 - pred.bbox.y1) / 1200) * 300}px`} style={{ fill: 'rgb(0,0,255)', fillOpacity: 0.01, strokeWidth: 1, stroke: 'rgb(0,0,128)' }} />
+                        <text x={`${((pred.bbox.x2 / 1600) * 400 - 100)}`} y={`${((pred.bbox.y1 / 1200) * 300 + 10)}`} font-family="Verdana" font-size="12" fill="black">{`${pred.label} (${(parseFloat(pred.score)*100).toFixed(0)}%)`}</text>
+                      </g>
+                      </>
+                    )
                 })}
               </svg>
             </div>
