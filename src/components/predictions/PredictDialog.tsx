@@ -36,7 +36,7 @@ export const PredictDialog = (props: PredictDialogProps) => {
                     return (
                       <>
                       <g>
-                        <rect x={`${(pred.bbox.x1 / 1600) * 400}`} y={`${(pred.bbox.y1 / 1200) * 300}`} style={{ display: "inline-block" }} width={`${((pred.bbox.x2 - pred.bbox.x1) / 1600) * 400}`} height={`${((pred.bbox.y2 - pred.bbox.y1) / 1200) * 300}px`} style={{ fill: 'rgb(0,0,255)', fillOpacity: 0.01, strokeWidth: 1, stroke: 'rgb(0,0,128)' }} />
+                        <rect x={`${(pred.bbox.x1 / 1600) * 400}`} y={`${(pred.bbox.y1 / 1200) * 300}`} width={`${((pred.bbox.x2 - pred.bbox.x1) / 1600) * 400}`} height={`${((pred.bbox.y2 - pred.bbox.y1) / 1200) * 300}px`} style={{ fill: 'rgb(0,0,255)', fillOpacity: 0.01, strokeWidth: 1, stroke: 'rgb(0,0,128)' }} />
                         <text x={`${((pred.bbox.x2 / 1600) * 400 - 100)}`} y={`${((pred.bbox.y1 / 1200) * 300 + 10)}`} font-family="Verdana" font-size="12" fill="black">{`${pred.label} (${(parseFloat(pred.score)*100).toFixed(0)}%)`}</text>
                       </g>
                       </>
