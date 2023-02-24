@@ -1,5 +1,7 @@
+import { MyImage } from '@/pages';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import PredictionsTable from './PredictionsTable';
+import {PredictionsTable} from './PredictionsTable';
+import styles from "../../styles/PredictionsTab.module.css";
 
 
 export interface Image {
@@ -9,26 +11,21 @@ export interface Image {
   }
 
 interface PredictionsTabProps {
-    images: Image[];
-    setImages: Dispatch<SetStateAction<Image[]>>;
+    images: MyImage[];
+    setImages: Dispatch<SetStateAction<MyImage[]>>;
   }
   
 export const PredictionsTab: React.FC<PredictionsTabProps> = (props: PredictionsTabProps) => {
 
   const [showDialog, setShowDialog] = useState(false);
 
-  const handleView = () => {
-    setShowDialog(true);
-  };
-
-  const handleDialogClose = () => {
-    setShowDialog(false);
-  };
 
   return (
-    <div className="tab">
+    
+    <div className={styles.center}>
       <h2>Predictions</h2>
-      <PredictionsTable images={props.images} handleView={handleView} />
+      <br></br>
+      <PredictionsTable images={props.images} />
     </div>
   );
 }

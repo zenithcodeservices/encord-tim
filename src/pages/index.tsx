@@ -21,6 +21,7 @@ export interface PredictionData {
 export interface Prediction {
   title: string;
   description: string;
+  time: Date;
   predictions: PredictionData[];
 }
 
@@ -65,7 +66,7 @@ export default function Layout() {
             </Typography>
             <div className={styles.center}>
               {selectedTab === 0 && <ImagesTab images={images} setImages={setImages} />}
-              {selectedTab === 1 && <PredictionsTab images={images} />}
+              {selectedTab === 1 && <PredictionsTab images={images} setImages={setImages} />}
             </div>
             {/* <Home></Home> */}
           </div>  

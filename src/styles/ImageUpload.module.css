@@ -1,0 +1,12 @@
+.customFileUpload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color:cornflowerblue;
+  color: azure;
+}
+
+.customFileUpload:hover {
+  background-color:rgb(167, 194, 242);
+  color: azure;
+}

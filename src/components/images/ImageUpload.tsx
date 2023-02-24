@@ -1,5 +1,7 @@
 import { ImageProps } from '@/pages';
+import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
+import styles from "../../styles/ImageUpload.module.css";
 
 export function ImageUpload({ setImages }: ImageProps) {
   
@@ -14,6 +16,7 @@ export function ImageUpload({ setImages }: ImageProps) {
         prediction: {
           title: "",
           description: "",
+          time: new Date(),
           predictions: [{
               bbox: {
               x1: 0,
@@ -33,7 +36,11 @@ export function ImageUpload({ setImages }: ImageProps) {
 
   return (
     <div>
-      <input type="file" onChange={(e) => handleImageUpload(e)} multiple />
+      <Button>
+        <label className={styles.customFileUpload} htmlFor="file-upload">Upload Files</label>
+      </Button>
+      <input style={{display:"none"}} id="file-upload" type="file" onChange={(e) => handleImageUpload(e)} multiple />
     </div>
   );
+
 }

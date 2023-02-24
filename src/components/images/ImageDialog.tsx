@@ -1,5 +1,5 @@
-import styles from "../../styles/ImagesTab.module.css";
-import React, { useState } from "react";
+import styles from "../../styles/ImagesDialog.module.css";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {  MyImage, PredictionData } from "@/pages";
 import {
   Button,
@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import LoadingSpin from "react-loading-spin";
 import https from "https";
+import { setConstantValue } from "typescript";
 
 
 
@@ -44,7 +45,7 @@ export const ImageDialog = (props: ImageDialogProps) => {
   const {open, image, onClose} = props
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState('');
 
 
   const [title, setTitle] = useState('');
@@ -53,6 +54,7 @@ export const ImageDialog = (props: ImageDialogProps) => {
   const addPrediction = (data: any) => {
     image.prediction.title = title !== undefined ? title : "Test"
     image.prediction.description = description !== undefined ? description : "Test"
+    image.prediction.time = new Date()
     data.predictions.forEach((pred: PredictionData) => {
       image.prediction.predictions.push(pred)
     })
@@ -87,15 +89,16 @@ export const ImageDialog = (props: ImageDialogProps) => {
       const res = await fetch("http://localhost:3000/predict");
 
       if (!res.ok) {
-        setErrorMessage(`Error! status: ${res.status}`);
-        throw new Error(`Error! status: ${res.status}`);
+        setMessage(`Error! status: ${res.status}`)
+        throw new Error(`Error! status: ${res.status}`)
       }
 
       const data = await res.json();
       console.log("data", data);
       const newData = convertNegativeBboxToZero(data)
-      addPrediction(newData);
-      setLoading(false);
+      addPrediction(newData)
+      setLoading(false)
+      alert("Prediction Complete! Click anywhere to dismiss.")
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -104,34 +107,39 @@ export const ImageDialog = (props: ImageDialogProps) => {
   }
 
 
+
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogContent>
+      <DialogContent className={styles.column}>
         <h3>Predict Image</h3>
-        <label>
-          Title:
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        </label>
-        <label>
-          Description:
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
+        <div className={styles.flexRow}>
+          <div className={styles.column} style={{alignItems:"flex-end"}}>
+            <label htmlFor="title">
+              Title
+            </label>
+            <label htmlFor="description">
+              Description
+            </label>
+          </div>
+          <div className={styles.column}>
+            <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input
+              id="description"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSubmit}>Submit</Button>
       </DialogActions>
       {loading && (
-        <div className={styles.loading}>
-          <li>
+        <div className={styles.flexRow}>
             <LoadingSpin primaryColor="#00D39" />
-          </li>
         </div>
       )}
-      {errorMessage !== "" && <p>{errorMessage}</p>}
     </Dialog>
   );
 

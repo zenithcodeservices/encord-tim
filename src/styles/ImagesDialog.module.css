@@ -1,0 +1,24 @@
+.flexRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+}
+
+.column {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+  gap: 1em;
+}
+
+.column label {
+  align-items: center;
+}
+
+.column input {
+  height: 2.2em;
+  padding: 0.5em;
+}

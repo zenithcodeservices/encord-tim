@@ -34,7 +34,9 @@ export const ImagesTab: React.FC<ImagesTabProps> = (props: ImagesTabProps) => {
   return (
     <div className={styles.center}>
       <h2>Images</h2>
+      <br></br>
       <ImageUpload images={props.images} setImages={props.setImages} />
+      <br></br>
       <ImageTable images={props.images} />
     </div>
   )
