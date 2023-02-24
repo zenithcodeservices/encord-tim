@@ -31,7 +31,12 @@ export const ImageDialog = (props: ImageDialogProps) => {
   const [description, setDescription] = useState('');
 
   const addPrediction = (data: any) => {
-    //functionality here
+    image.prediction.title = title !== undefined ? title : "Test"
+    image.prediction.description = description !== undefined ? description : "Test"
+    data.predictions.forEach((pred: PredictionData) => {
+      image.prediction.predictions.push(pred)
+    })
+    console.log("image", image);
     
   }
 
