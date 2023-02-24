@@ -1,29 +1,28 @@
-import { MyImage } from '@/pages';
-import React from 'react';
+import { MyImage } from "@/pages";
+import React from "react";
 import styles from "../../styles/PredictionsTable.module.css";
-import { PredictDialog } from './PredictDialog';
+import { PredictDialog } from "./PredictDialog";
 
 interface PredictionsTableProps {
   images: MyImage[];
 }
 
-
-export const PredictionsTable: React.FC<PredictionsTableProps> = (props: PredictionsTableProps) => {
-
-  const [open, setOpen] = React.useState(false)
-  const [selectedIndex, setSelectedIndex] = React.useState(-1)
+export const PredictionsTable: React.FC<PredictionsTableProps> = (
+  props: PredictionsTableProps
+) => {
+  const [open, setOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(-1);
 
   const handleClickOpen = (index: number) => {
-    setSelectedIndex(index)
+    setSelectedIndex(index);
     setOpen(true);
   };
 
-
   const handleClose = () => {
     setOpen(false);
-    };
+  };
 
-  const {images} = props
+  const { images } = props;
 
   return (
     <>
@@ -37,29 +36,31 @@ export const PredictionsTable: React.FC<PredictionsTableProps> = (props: Predict
           </tr>
         </thead>
         <tbody>
-          {images.map((image: MyImage, index: number) => (
-      
-              image.prediction.title !== undefined ? (
-                <tr key={image.filename}>
-                  <td>{image.prediction.title}</td>
-                  <td>{image.prediction.description}</td>
-                  <td>{image.prediction.time?.toLocaleString()}</td>
-                  <td>
-                    <button className={styles.viewBtn} onClick={() => handleClickOpen(index)}>VIEW</button>
-                  </td>
-                </tr>
-              ) : null
-          )
+          {images.map((image: MyImage, index: number) =>
+            image.prediction.title !== undefined ? (
+              <tr key={image.filename}>
+                <td>{image.prediction.title}</td>
+                <td>{image.prediction.description}</td>
+                <td>{image.prediction.time?.toLocaleString()}</td>
+                <td>
+                  <button
+                    className={styles.viewBtn}
+                    onClick={() => handleClickOpen(index)}
+                  >
+                    VIEW
+                  </button>
+                </td>
+              </tr>
+            ) : null
           )}
           <PredictDialog
-              open={open}
-              images={images}
-              index={selectedIndex}
-              onClose={handleClose}
-            />
+            open={open}
+            images={images}
+            index={selectedIndex}
+            onClose={handleClose}
+          />
         </tbody>
       </table>
     </>
-
   );
-}
+};

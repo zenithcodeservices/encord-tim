@@ -4,15 +4,12 @@ import { ImageProps, MyImage } from "@/pages";
 import { ImageUpload } from "./ImageUpload";
 import { ImageTable } from "./ImageTable";
 
-
 interface ImagesTabProps {
   images: MyImage[];
   setImages: Dispatch<SetStateAction<MyImage[]>>;
 }
 
 export const ImagesTab: React.FC<ImagesTabProps> = (props: ImagesTabProps) => {
-
-  
   const [showDialog, setShowDialog] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string>("");
 
@@ -23,7 +20,7 @@ export const ImagesTab: React.FC<ImagesTabProps> = (props: ImagesTabProps) => {
 
   const handleDialogSubmit = (title: string, description: string) => {
     // TODO: make API request and save prediction
-    
+
     setShowDialog(false);
   };
 
@@ -39,6 +36,5 @@ export const ImagesTab: React.FC<ImagesTabProps> = (props: ImagesTabProps) => {
       <br></br>
       <ImageTable images={props.images} />
     </div>
-  )
-
-}
+  );
+};

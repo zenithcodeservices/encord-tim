@@ -1,11 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
-import { Dispatch, SetStateAction, useState } from 'react'
-import {ImagesTab} from '@/components/images/ImagesTab'
-import {PredictionsTab} from '@/components/predictions/PredictionsTab'
-import { Typography } from '@mui/material'
-
+import Head from "next/head";
+import Image from "next/image";
+import styles from "@/styles/Home.module.css";
+import { Dispatch, SetStateAction, useState } from "react";
+import { ImagesTab } from "@/components/images/ImagesTab";
+import { PredictionsTab } from "@/components/predictions/PredictionsTab";
+import { Typography } from "@mui/material";
 
 export interface PredictionData {
   bbox: {
@@ -37,9 +36,7 @@ export interface ImageProps {
   setImages: Dispatch<SetStateAction<MyImage[]>>;
 }
 
-
 export default function Layout() {
-
   const [images, setImages] = useState<MyImage[]>([]);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -65,13 +62,17 @@ export default function Layout() {
               Accurate Image predictions using AI
             </Typography>
             <div className={styles.center}>
-              {selectedTab === 0 && <ImagesTab images={images} setImages={setImages} />}
-              {selectedTab === 1 && <PredictionsTab images={images} setImages={setImages} />}
+              {selectedTab === 0 && (
+                <ImagesTab images={images} setImages={setImages} />
+              )}
+              {selectedTab === 1 && (
+                <PredictionsTab images={images} setImages={setImages} />
+              )}
             </div>
             {/* <Home></Home> */}
-          </div>  
+          </div>
         </div>
       </main>
     </>
-  )
+  );
 }
