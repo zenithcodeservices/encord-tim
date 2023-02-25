@@ -3,7 +3,6 @@ import { MyImage } from "@/pages";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
 import { ImageDialog } from "./ImageDialog";
-import { ImagesTab } from "./ImagesTab";
 
 interface ImageTableProps {
   images: MyImage[];
@@ -51,8 +50,8 @@ export const ImageTable: React.FC<ImageTableProps> = (
                       objectFit={"contain"}
                     />
                   </div>
-                  <td>{image.filename}</td>
-                  <td>{image.size}</td>
+                  <td>{image.filename.split('/').pop() ?? ''}</td>
+                  <td>{image.size.toFixed(2)} MB</td>
                   <td>{image.time.toLocaleString()}</td>
                   <td>
                     <button

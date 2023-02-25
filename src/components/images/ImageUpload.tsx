@@ -9,7 +9,7 @@ export function ImageUpload({ setImages }: ImageProps) {
     const uploadedImages = files.map((file) => {
       return {
         filename: URL.createObjectURL(file),
-        size: file.lastModified,
+        size: (file.size / 1048576), //convert to MB
         time: new Date(),
         prediction: {
           title: "",

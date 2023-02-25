@@ -37,7 +37,7 @@ export const PredictionsTable: React.FC<PredictionsTableProps> = (
         </thead>
         <tbody>
           {images.map((image: MyImage, index: number) =>
-            image.prediction.title !== undefined ? (
+            image.prediction.title !== '' ? (
               <tr key={image.filename}>
                 <td>{image.prediction.title}</td>
                 <td>{image.prediction.description}</td>

@@ -11,6 +11,8 @@ import LoadingSpin from "react-loading-spin";
 import https from "https";
 import { setConstantValue } from "typescript";
 
+
+
 export interface ImageDialogProps {
   open: boolean;
   image: MyImage;
@@ -73,14 +75,10 @@ export const ImageDialog = (props: ImageDialogProps) => {
   };
 
   const handleSubmit = async () => {
-    // TODO: make API request and save prediction
     try {
       setLoading(true);
-      const agent = new https.Agent({
-        rejectUnauthorized: false,
-      });
 
-      const res = await fetch("http://localhost:3000/predict");
+      const res = await fetch('/api/predict');
 
       if (!res.ok) {
         setMessage(`Error! status: ${res.status}`);
@@ -97,7 +95,6 @@ export const ImageDialog = (props: ImageDialogProps) => {
       console.log(error);
       setLoading(false);
     }
-    //
   };
 
   return (

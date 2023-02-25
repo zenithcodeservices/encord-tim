@@ -23,7 +23,6 @@ export const PredictDialog = (props: PredictDialogProps) => {
       <DialogContent>
         <h3>Image Prediction</h3>
         <div className={styles.imgContainer}>
-          {/* <Image alt={images[index]?.filename} src={images[index]?.filename} width={200} height={200} layout="responsive" objectFit={'contain'} /> */}
           <div
             style={{
               backgroundImage: `url(${images[index]?.filename})`,
@@ -35,6 +34,9 @@ export const PredictDialog = (props: PredictDialogProps) => {
           >
             <svg width="400" height="300">
               {images[index]?.prediction.predictions?.map((pred) => {
+                //You can see here that the application currently
+                //requires the image to be in the 1600x1200 resolution
+                //or rather the API to return coordinates that match this resolution
                 return (
                   <>
                     <g>
